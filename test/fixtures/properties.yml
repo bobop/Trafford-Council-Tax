@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  secondary_address: MyString
+  primary_address: MyString
+  street: MyString
+  town: MyString
+  band: MyString
+  longitude: MyString
+  latitude: MyString
+
+two:
+  secondary_address: MyString
+  primary_address: MyString
+  street: MyString
+  town: MyString
+  band: MyString
+  longitude: MyString
+  latitude: MyString

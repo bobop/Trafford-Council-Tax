@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Secondary address:</b>
+  <%= @property.secondary_address %>
+</p>
+
+<p>
+  <b>Primary address:</b>
+  <%= @property.primary_address %>
+</p>
+
+<p>
+  <b>Street:</b>
+  <%= @property.street %>
+</p>
+
+<p>
+  <b>Town:</b>
+  <%= @property.town %>
+</p>
+
+<p>
+  <b>Band:</b>
+  <%= @property.band %>
+</p>
+
+<p>
+  <b>Longitude:</b>
+  <%= @property.longitude %>
+</p>
+
+<p>
+  <b>Latitude:</b>
+  <%= @property.latitude %>
+</p>
+
+
+<%= link_to 'Edit', edit_property_path(@property) %> |
+<%= link_to 'Back', properties_path %>

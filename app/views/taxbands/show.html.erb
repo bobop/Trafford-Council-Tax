@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @taxband.name %>
+</p>
+
+<p>
+  <b>Lower limit:</b>
+  <%= @taxband.lower_limit %>
+</p>
+
+<p>
+  <b>Upper limit:</b>
+  <%= @taxband.upper_limit %>
+</p>
+
+<p>
+  <b>Charge:</b>
+  <%= @taxband.charge %>
+</p>
+
+<p>
+  <b>Start date:</b>
+  <%= @taxband.start_date %>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%= @taxband.end_date %>
+</p>
+
+<p>
+  <b>Market value date:</b>
+  <%= @taxband.market_value_date %>
+</p>
+
+
+<%= link_to 'Edit', edit_taxband_path(@taxband) %> |
+<%= link_to 'Back', taxbands_path %>

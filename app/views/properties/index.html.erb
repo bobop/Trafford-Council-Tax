@@ -1,0 +1,35 @@
+<h1>Listing properties</h1>
+
+<table>
+  <tr>
+    <th>Secondary address</th>
+    <th>Primary address</th>
+    <th>Street</th>
+    <th>Town</th>
+    <th>Band</th>
+    <th>Longitude</th>
+    <th>Latitude</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @properties.each do |property| %>
+  <tr>
+    <td><%= property.secondary_address %></td>
+    <td><%= property.primary_address %></td>
+    <td><%= property.street %></td>
+    <td><%= property.town %></td>
+    <td><%= property.band %></td>
+    <td><%= property.longitude %></td>
+    <td><%= property.latitude %></td>
+    <td><%= link_to 'Show', property %></td>
+    <td><%= link_to 'Edit', edit_property_path(property) %></td>
+    <td><%= link_to 'Destroy', property, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Property', new_property_path %>

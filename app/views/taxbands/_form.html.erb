@@ -1,0 +1,45 @@
+<%= form_for(@taxband) do |f| %>
+  <% if @taxband.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@taxband.errors.count, "error") %> prohibited this taxband from being saved:</h2>
+
+      <ul>
+      <% @taxband.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :lower_limit %><br />
+    <%= f.text_field :lower_limit %>
+  </div>
+  <div class="field">
+    <%= f.label :upper_limit %><br />
+    <%= f.text_field :upper_limit %>
+  </div>
+  <div class="field">
+    <%= f.label :charge %><br />
+    <%= f.text_field :charge %>
+  </div>
+  <div class="field">
+    <%= f.label :start_date %><br />
+    <%= f.date_select :start_date %>
+  </div>
+  <div class="field">
+    <%= f.label :end_date %><br />
+    <%= f.date_select :end_date %>
+  </div>
+  <div class="field">
+    <%= f.label :market_value_date %><br />
+    <%= f.date_select :market_value_date %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

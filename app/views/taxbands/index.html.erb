@@ -1,0 +1,32 @@
+<% content_for :head do %>
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load('visualization', '1', {'packages':['motionchart']});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Band');
+        data.addColumn('date', 'Date');
+        data.addColumn('number', 'Charge');
+        data.addRows([
+		<% @taxbands.each do |b| %>
+			['<%= b.name %>',new Date (<%= b.start_date.strftime("%Y,%m,%d") %>),<%= b.charge %>],
+		<% end %>
+          ]);
+		var options = {};
+		options['state'] =
+		'{"showTrails":false,"yZoomedIn":false,"uniColorForNonSelected":false,"xLambda":1,"duration":{"multiplier":1,"timeUnit":"Y"},"xZoomedDataMin":0,"yLambda":1,"orderedByX":true,"xZoomedDataMax":8,"time":"1993-04-01","colorOption":"_UNIQUE_COLOR","iconKeySettings":[],"sizeOption":"_UNISIZE","playDuration":15000,"dimensions":{"iconDimensions":["dim0"]},"xAxisOption":"_ALPHABETICAL","yZoomedDataMax":3000,"yAxisOption":"2","iconType":"VBAR","orderedByY":false,"nonSelectedAlpha":0.4,"yZoomedDataMin":0,"xZoomedIn":false};';
+        options['width'] = 600;
+		options['height'] = 400;
+		options['showChartButtons'] = false;
+		options['showYMetricPicker'] = false;
+		options['showXMetricPicker'] = false;
+		options['showAdvancedPanel'] = false;
+		var chart = new google.visualization.MotionChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+<% end %>
+<h1>Trafford Council Tax Bands</h1>
+
+<div id="chart_div" style="width: 600px; height: 400px;"></div>
