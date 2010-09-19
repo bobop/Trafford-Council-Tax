@@ -46,4 +46,6 @@ Traffordcounciltax::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+  
+  GM_API_KEY = 'ABQIAAAAvLeP-n4HImdAybThP9vFexQ8nda2l8z-oXOZMhvo4DA8FzaARRQkZC2FgDEKclPKREcwdOD8Af8qWA'
 end
