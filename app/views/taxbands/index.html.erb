@@ -11,6 +11,7 @@
         data.addRows([
 		<% @taxbands.each do |b| %>
 			['<%= b.name %>',new Date (<%= b.start_date.strftime("%Y,%m,%d") %>),<%= b.charge %>],
+			['<%= b.name %>',new Date (<%= b.end_date.strftime("%Y,%m,%d") %>),<%= b.charge %>],
 		<% end %>
           ]);
 		var options = {};
@@ -28,5 +29,10 @@
     </script>
 <% end %>
 <h1>Trafford Council Tax Bands</h1>
+
+<div class="buttons">
+	<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ftraffordcounciltax.heroku.com&amp;layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; width:450px; height:40px;" allowTransparency="true"></iframe>
+	<span><a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></span>
+</div>
 
 <div id="chart_div" style="width: 600px; height: 400px;"></div>

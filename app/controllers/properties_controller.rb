@@ -1,8 +1,20 @@
+require 'autocomplete'
 class PropertiesController < ApplicationController
+  autocomplete :property, :street, :full => true, :limit => 50
+  def welcome
+    
+  end
+  
   # GET /properties
   # GET /properties.xml
   def index
-    @properties = Property.all
+    if params[:street]
+      @properties = Property.where(["street = ?",params[:street]]).order('primary_address ASC').all
+      @current_taxbands = Taxband.where(["end_date > ?",Time.now.strftime("%Y-%m-%d")]).all
+    else
+      
+    end
+    #@properties = Property.all
 
     respond_to do |format|
       format.html # index.html.erb

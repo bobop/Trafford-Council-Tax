@@ -1,0 +1,26 @@
+<h1>Trafford Council Tax</h1>
+
+<div class="buttons">
+	<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ftraffordcounciltax.heroku.com&amp;layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; width:450px; height:40px;" allowTransparency="true"></iframe>
+	<span><a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></span>
+</div>
+
+<div id="content">
+	
+	<div id="info">
+		<div class="right_info">
+			<h2>Tax Band Charges</h2>
+			<p><a href="/taxbands">See the interactive chart showing how Trafford Council Tax Bands have increased since 1993!</a></p>
+		</div>
+		<div class="left_info">
+			<h2>Property Tax Bands</h2>
+			<p><a href="/properties">See The Tax Bands Of Your Neighbours!</a></p>
+			<h3>Enter Your Street Name:</h3>
+			<%= form_for :property, :url => {:action => 'index'}, :html => {:method => 'get'} do |f| %>
+			  <%= f.autocomplete_field :property_street, autocomplete_property_street_properties_path, :name => 'street' %>
+			<%= f.submit 'Show Me' %>
+			<% end %>
+			
+		</div>
+	</div>
+</div>

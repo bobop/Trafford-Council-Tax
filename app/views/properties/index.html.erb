@@ -1,35 +1,136 @@
-<h1>Listing properties</h1>
+<% if params[:street] %>
+	<% content_for :head do %>
+		<script src="http://maps.google.com/maps?file=api&v=2&key=<%= GM_API_KEY %>&sensor=false" type="text/javascript"></script>
+		<script type="text/javascript">
 
-<table>
-  <tr>
-    <th>Secondary address</th>
-    <th>Primary address</th>
-    <th>Street</th>
-    <th>Town</th>
-    <th>Band</th>
-    <th>Longitude</th>
-    <th>Latitude</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @properties.each do |property| %>
-  <tr>
-    <td><%= property.secondary_address %></td>
-    <td><%= property.primary_address %></td>
-    <td><%= property.street %></td>
-    <td><%= property.town %></td>
-    <td><%= property.band %></td>
-    <td><%= property.longitude %></td>
-    <td><%= property.latitude %></td>
-    <td><%= link_to 'Show', property %></td>
-    <td><%= link_to 'Edit', edit_property_path(property) %></td>
-    <td><%= link_to 'Destroy', property, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+			function initialize() {
+		      if (GBrowserIsCompatible()) {
+		        map = new GMap2(document.getElementById("map_canvas"));
+				var latlngbounds = new GLatLngBounds( );
+				  <% @properties.each do |p| %>
+				    latlngbounds.extend( new GLatLng(<%= p.latitude %>, <%= p.longitude %>) );
+				  <% end %>
+				  map.setCenter( latlngbounds.getCenter( ), map.getBoundsZoomLevel( latlngbounds ) );
+		        //map.setCenter(new GLatLng(53.4195,-2.34), 12);
+				map.setMapType(G_HYBRID_MAP);
+		        map.enableDoubleClickZoom();
+				map.setUIToDefault();
+		
+				// Create our "tiny" marker icon
+				var Icon = new GIcon(G_DEFAULT_ICON);
+				markerIcon = { icon:Icon };
+		
+				var aIcon = new GIcon(G_DEFAULT_ICON);
+				aIcon.image = "images/blue_MarkerA.png";
+				markerIconA = { icon:aIcon };
+		
+				var bIcon = new GIcon(G_DEFAULT_ICON);
+				bIcon.image = "images/paleblue_MarkerB.png";
+				markerIconB = { icon:bIcon };
+		
+				var cIcon = new GIcon(G_DEFAULT_ICON);
+				cIcon.image = "images/darkgreen_MarkerC.png";
+				markerIconC = { icon:cIcon };
+		
+				var dIcon = new GIcon(G_DEFAULT_ICON);
+				dIcon.image = "images/green_MarkerD.png";
+				markerIconD = { icon:dIcon };
+		
+				var eIcon = new GIcon(G_DEFAULT_ICON);
+				eIcon.image = "images/brown_MarkerE.png";
+				markerIconE = { icon:eIcon };
+		
+				var fIcon = new GIcon(G_DEFAULT_ICON);
+				fIcon.image = "images/yellow_MarkerF.png";
+				markerIconF = { icon:fIcon };
+		
+				var gIcon = new GIcon(G_DEFAULT_ICON);
+				gIcon.image = "images/orange_MarkerG.png";
+				markerIconG = { icon:gIcon };
+		
+				var hIcon = new GIcon(G_DEFAULT_ICON);
+				hIcon.image = "images/red_MarkerH.png";
+				markerIconH = { icon:hIcon };
+		
+				function createMarker(point, info, markerIcon) {
+				  var marker = new GMarker(point, markerIcon);
+				  GEvent.addListener(marker, "click", function() {
+				    var myHtml = info;
+				    map.openInfoWindowHtml(point, myHtml);
+				  });
+				  return marker;
+				}
+				
+				<% @current_taxbands.each do |b| %>
+					band<%= b.name %> = <%= b.charge %>;
+				<% end %>
+		
+				<% @properties.each do |p| %>
+					<% if p.band == 'A' %>info = "<div class='bubble'><strong>Band: <%= p.band %></strong><br/>£"+bandA+"<br/><%= p.secondary_address+', ' if !p.secondary_address.blank? %><%= p.primary_address %>, <%= p.street %></div>";<% end %>
+					<% if p.band == 'B' %>info = "<div class='bubble'><strong>Band: <%= p.band %></strong><br/>£"+bandB+"<br/><%= p.secondary_address+', ' if !p.secondary_address.blank? %><%= p.primary_address %>, <%= p.street %></div>";<% end %>
+					<% if p.band == 'C' %>info = "<div class='bubble'><strong>Band: <%= p.band %></strong><br/>£"+bandC+"<br/><%= p.secondary_address+', ' if !p.secondary_address.blank? %><%= p.primary_address %>, <%= p.street %></div>";<% end %>
+					<% if p.band == 'D' %>info = "<div class='bubble'><strong>Band: <%= p.band %></strong><br/>£"+bandD+"<br/><%= p.secondary_address+', ' if !p.secondary_address.blank? %><%= p.primary_address %>, <%= p.street %></div>";<% end %>
+					<% if p.band == 'E' %>info = "<div class='bubble'><strong>Band: <%= p.band %></strong><br/>£"+bandE+"<br/><%= p.secondary_address+', ' if !p.secondary_address.blank? %><%= p.primary_address %>, <%= p.street %></div>";<% end %>
+					<% if p.band == 'F' %>info = "<div class='bubble'><strong>Band: <%= p.band %></strong><br/>£"+bandF+"<br/><%= p.secondary_address+', ' if !p.secondary_address.blank? %><%= p.primary_address %>, <%= p.street %></div>";<% end %>
+					<% if p.band == 'G' %>info = "<div class='bubble'><strong>Band: <%= p.band %></strong><br/>£"+bandG+"<br/><%= p.secondary_address+', ' if !p.secondary_address.blank? %><%= p.primary_address %>, <%= p.street %></div>";<% end %>
+					<% if p.band == 'H' %>info = "<div class='bubble'><strong>Band: <%= p.band %></strong><br/>£"+bandH+"<br/><%= p.secondary_address+', ' if !p.secondary_address.blank? %><%= p.primary_address %>, <%= p.street %></div>";<% end %>
+					point = new GLatLng(<%= p.latitude %>, <%= p.longitude %>);
+					<% if p.band == 'A' %>map.addOverlay(createMarker(point, info, markerIconA));<% end %>
+					<% if p.band == 'B' %>map.addOverlay(createMarker(point, info, markerIconB));<% end %>
+					<% if p.band == 'C' %>map.addOverlay(createMarker(point, info, markerIconC));<% end %>
+					<% if p.band == 'D' %>map.addOverlay(createMarker(point, info, markerIconD));<% end %>
+					<% if p.band == 'E' %>map.addOverlay(createMarker(point, info, markerIconE));<% end %>
+					<% if p.band == 'F' %>map.addOverlay(createMarker(point, info, markerIconF));<% end %>
+					<% if p.band == 'G' %>map.addOverlay(createMarker(point, info, markerIconG));<% end %>
+					<% if p.band == 'H' %>map.addOverlay(createMarker(point, info, markerIconH));<% end %>
+				<% end %>
+		      }
+		    }
+		</script>
+	<% end %>
 <% end %>
-</table>
 
-<br />
+<h1>Trafford Property Tax Bands</h1>
 
-<%= link_to 'New Property', new_property_path %>
+<div class="buttons">
+	<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ftraffordcounciltax.heroku.com&amp;layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; width:450px; height:40px;" allowTransparency="true"></iframe>
+	<span><a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></span>
+</div>
+	
+<% if params[:street] %>
+<div id="content">
+	<div id="map_canvas" style="width: 800px; height: 600px"></div>
+	
+	<div id="info">
+		<div class="right_info">
+			<h2>Current Tax Band Charges</h2>
+			<% @current_taxbands.each do |b| %>
+				<p><%= image_tag '/images/blue_MarkerA.png' if b.name == "A" %> 
+				<%= image_tag '/images/paleblue_MarkerB.png' if b.name == "B" %> 
+				<%= image_tag '/images/darkgreen_MarkerC.png' if b.name == "C" %> 
+				<%= image_tag '/images/green_MarkerD.png' if b.name == "D" %> 
+				<%= image_tag '/images/brown_MarkerE.png' if b.name == "E" %> 
+				<%= image_tag '/images/yellow_MarkerF.png' if b.name == "F" %> 
+				<%= image_tag '/images/orange_MarkerG.png' if b.name == "G" %> 
+				<%= image_tag '/images/red_MarkerH.png' if b.name == "H" %> 
+				Band <%= b.name %> = <span>£<%= b.charge %>p</span></p>
+			<% end %>
+		</div>
+		<div class="left_info">
+			<h2>Addresses On This Street</h2>
+			<p>
+			<% @properties.each do |p| %>
+				<%= p.secondary_address+', ' if !p.secondary_address.blank? %><%= p.primary_address %>, <%= p.street %>, <%= p.town %> - <strong>Band <%= p.band %></strong><br>
+			<% end %>
+			</p>
+		</div>
+	</div>
+</div>
+<% else %>
+	<h3>Enter Your Street Name:</h3>
+	<%= form_for :property, :html => {:method => 'get'} do |f| %>
+	  <%= f.autocomplete_field :property_street, autocomplete_property_street_properties_path, :name => 'street' %>
+	<%= f.submit 'Show Me' %>
+	<% end %>
+<% end %>
+
