@@ -9,6 +9,8 @@ class TaxbandsController < ApplicationController
       format.xml  { render :xml => @taxbands }
     end
   end
+  
+  protected
 
   # GET /taxbands/1
   # GET /taxbands/1.xml

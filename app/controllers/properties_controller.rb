@@ -21,6 +21,8 @@ class PropertiesController < ApplicationController
       format.xml  { render :xml => @properties }
     end
   end
+  
+  protected
 
   # GET /properties/1
   # GET /properties/1.xml
