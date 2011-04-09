@@ -10,7 +10,8 @@ class PropertiesController < ApplicationController
   def index
     if params[:street]
       @properties = Property.where(["street = ?",params[:street]]).order('primary_address ASC').all
-      @current_taxbands = Taxband.where(["end_date > ?",Time.now.strftime("%Y-%m-%d")]).all
+      #@current_taxbands = Taxband.where(["end_date > ?",Time.now.strftime("%Y-%m-%d")]).all
+      @current_taxbands = Taxband.where(["end_date = ?","2011-03-31"]).all
     else
       
     end
